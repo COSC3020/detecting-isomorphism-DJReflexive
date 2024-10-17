@@ -1,42 +1,6 @@
-const fs = require('fs');
-const jsc = require('jsverify');
-
-eval(fs.readFileSync('code.js')+'');
-
-
-
-// Helper class to track nodes
-// This class is in this file because I couldn't get it to run
-//      in a seperate file. Me and TA Ali were trying to work 
-//      with it, but ultimately put the class into this file.
-class Node {
-    constructor(n, edges) {
-        this.n = n;
-        this.edges = edges;
-        this.isVisited = false;
-    }
-
-    getNode() {
-        return this.n;
-    }
-
-    getEdges() {
-        return this.edges;
-    }
-
-    foundEqual() {
-        return this.isVisited;
-    }
-
-    setFoundEqual() {
-        this.isVisited = true;
-    }
-
-    clearEquality() {
-        this.isVisited = false;
-    }
-}
-
+import { GraphNode } from "./GraphNode.js";
+import { are_isomorphic } from "./code.js";
+import jsc from 'jsverify';
 
 
     /* Helper Functions */
@@ -52,7 +16,7 @@ function generateGraph(size) {
             edges.push(jsc.random(0, 1))
         }
     
-        graph.push(new Node(i, edges))
+        graph.push(new GraphNode(i, edges))
     }
 
     return graph
@@ -131,6 +95,8 @@ function testPermutation(size, numTests) {
 
     return true;
 }
+
+
 
 
     /* Custom Testing */

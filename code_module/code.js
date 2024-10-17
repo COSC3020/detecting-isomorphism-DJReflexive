@@ -1,5 +1,5 @@
 
-function are_isomorphic(graph1, graph2) {
+export function are_isomorphic(graph1, graph2) {
     let len1 = graph1.length;
     let len2 = graph2.length;
 
@@ -12,8 +12,8 @@ function are_isomorphic(graph1, graph2) {
     // Compares all elements of graph1 against all elements of graph2
     for (let i = 0; i < len1; i++) {
         for (let j = 0; j < len2; j++) {
-            edges1 = graph1[i].getEdges();
-            edges2 = graph2[j].getEdges();
+            let edges1 = graph1[i].getEdges();
+            let edges2 = graph2[j].getEdges();
 
             // Check if edges are the same (assuming the neither node 
             // was already found to be equal to another node)
