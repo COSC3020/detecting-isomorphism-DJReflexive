@@ -20,13 +20,16 @@ What is the worst-case big $\Theta$ time complexity of your algorithm?
 
 When the are_isomorphic() method is called, there is a base case that checks whether two graphs are the same size. If they are not, the algorithm returns false in a constant time operation.
 
-Otherwise, the alogrithm will step into a double-nested for loop. Both loops go through its respective graph (which are the same size), meaning both for loops run $|E|$ times since it iterates through a list of edges in a adjacency matrix representation. Since they are nested, the complexity increases to $\Theta(|E|^2)$. There are some constant time operations that occur, like checking for equality between the two graphs, incrementing the counter, and setting nodes to "foundEqual." Outside of the double-nested for loop is a check if all the nodes have been set to equal, which is a constant time operation.
+Otherwise, the algorithm will go on to generate all the possible permutations of one of the graphs using the generatePermutations() method. Since all possible variations of the graph are generated, it will exectute $|V|!$ times. However there is an additional operation to consider before the permutations are actually generated. The convertGraphToArray() goes through the entire graph and converts it to a 1D array. Since it must go through the graph, the runtime of this method is $|V|^2$. Overall, the runtime of the generatePermutations() method is $\Theta(|V|^2 + |V|!)$
 
-Considering the whole algorithm, there is essentially a bunch of constant time operations with a double-nested for loop with a complexity of $\Theta(|E|^2)$. Since these constant operations are negligable, the final time complexity for the alogirithm is $\Theta(|E|^2)$. This is the complexity for both the average case and the worst case scenerios since it will always iterate through all |E|^2 edges no matter what.
+The next portion is the for loop. This loop iterates through all the permutations of the graph, meaning it has the same complexity as the generatePermutations() method. Inside the loop, there is another convertGraphToArray() method, and then a checkEqual() call. The checkEqual() method runs |V|^2 times as it uses the result of convertGraphToArray() as the input. The complexity of the for loop is $\Theta((|V^2|)!)$
+
+Putting it all together, we get the complexity of $\Theta(|V|^2 + |V|! + (|V^2|)!)$, which simplifies to $\Theta((|V|^2)!)$.
 
 # Sources
 
 - ChatGPT: For helping me come up with property testing ideas. All the implementation is all done by me, just needed to figure out what to test for.
+- ChatGPT: For the help writing my generatePermutations() and heap permute technique.
 
 # Plagiarism Acknowledgement
 

@@ -1,39 +1,93 @@
 
+// Main function
 export function are_isomorphic(graph1, graph2) {
-    let len1 = graph1.length;
-    let len2 = graph2.length;
-
     // Graphs couldn't be isomorphic if different sizes
-    if (len1 != len2) { return false; }
+    if (graph1.length != graph2.length) { return false; }
 
-    // Counts all of the equal nodes between the two graphs
-    let equalCounter = 0;
+    // Generates all permutations of graph2
+    const permutations = generatePermutations(graph2);
 
-    // Compares all elements of graph1 against all elements of graph2
-    for (let i = 0; i < len1; i++) {
-        for (let j = 0; j < len2; j++) {
-            let edges1 = graph1[i].getEdges();
-            let edges2 = graph2[j].getEdges();
+    // Checks if the two graphs are isomorphic
+    for (let perm = 0; perm < permutations.length; perm++) {
+        // Both graphs are converted to arrays, and if 
+        // one permutation matches, then it is isomorphic
+        if (checkEqual(convertGraphToArray(graph1), permutations[perm])) {
+            return true;
+        }
+    }
+    
+    return false;
+}
 
-            // Check if edges are the same (assuming the neither node 
-            // was already found to be equal to another node)
-            if ( JSON.stringify(edges1) == JSON.stringify(edges2) &&
-                ( !graph1[i].foundEqual() && !graph2[j].foundEqual()) ) {
 
-                equalCounter++;
+// Checks whether the two given arrays are identical
+function checkEqual(arr1, arr2) {
 
-                graph1[i].setFoundEqual();
-                graph2[j].setFoundEqual();
-            }
+    // Compares all elements (both arrays have same length)
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] != arr2[i]) { return false; }
+    }
+    
+    // If a case where all elems are equal, two arrays are equal
+    return true;
+}
+
+
+// Generates all possible permutations of the given graph
+function generatePermutations(graph) {
+    
+    let arr = convertGraphToArray(graph);
+
+    // Generates all of the Permutation:
+    const result = [];
+    const c = Array(arr.length).fill(0);  // Control array for Heap's algorithm
+
+    result.push(arr.slice());
+
+    let i = 0;
+    while (i < arr.length) {
+        if (c[i] < i) {
+
+            if (i % 2 === 0) { swap(arr, 0, i); } 
+            else { swap(arr, c[i], i); }
+
+            result.push(arr.slice());
+
+            c[i] += 1;
+            i = 0;
+        } else {
+            c[i] = 0;
+            i += 1;
         }
     }
 
-    // If all nodes in one graph were equal to some other 
-    // node in the other, the two graphs are isomorphic.
-    if (equalCounter == len1) {
-        return true;
+    return result;
+}
+
+
+// Swaps two elems of an array
+function swap(arr, i, j) {
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+
+
+// Converts a graph into a flattened array
+function convertGraphToArray(graph) {
+    // Convert from Graph to Array
+    let tmp = [];
+    for (let i = 0; i < graph.length; i++) {
+        tmp.push(graph[i].getEdges());
     }
-    else {
-        return false
+
+    // Flatten out array
+    let arr = [];
+    for (let i = 0; i < tmp.length; i++) {
+        for(let j = 0; j < tmp[i].length; j++) {
+            arr.push(tmp[i][j]);
+        }
     }
+
+    return arr;
 }

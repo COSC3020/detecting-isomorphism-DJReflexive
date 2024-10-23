@@ -101,8 +101,8 @@ function testPermutation(size, numTests) {
 
     /* Custom Testing */
 
-const graphSize = 5; // 5: Not too large so that isomorphism is more likely
-const numOfTests = 100000; // 100000: Sufficiently enough runs for each test
+const graphSize = 3; // 3: Not too large so that heap doesn't run out of memory
+const numOfTests = 1000; // 1000: Sufficiently large for n! runtime
 
 // Reflexive: graph is isomporphic to itself...
 const isReflexive = testReflexivity(graphSize, numOfTests);
