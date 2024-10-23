@@ -29,7 +29,7 @@ Putting it all together, we get the complexity of $\Theta(|V|^2 + |V|! + (|V^2|)
 # Sources
 
 - ChatGPT: For helping me come up with property testing ideas. All the implementation is all done by me, just needed to figure out what to test for.
-- ChatGPT: For the help writing my generatePermutations() and heap permute technique.
+- ChatGPT: For the help writing my generatePermutations() and heap permute technique. It wrote the majority of the function, but I wrote the convertGraphToArray() and swap() methods myself. I tried various versions of my own ideas to generate all permutations, however, I was unable to get it to work how I wanted. When I asked ChatGPT, it generated this version that uses Heap that I decided to implement with my code.
 
 # Plagiarism Acknowledgement
 
