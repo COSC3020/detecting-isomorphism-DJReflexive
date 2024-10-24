@@ -98,11 +98,6 @@ function testPermutation(size, numTests) {
 
 // Tests When Graphs are not Isomorphic
 function testInvalidGraphs(size, numTests) {
-    // Case where size is 0 passes test, even though it's already isomorphic
-    if (size == 0) {
-        return true;
-    }
-
     // Returns a Deep Clone of the graph
     function deepCloneGraph(graph) {
         let newGraph = [];
@@ -117,7 +112,7 @@ function testInvalidGraphs(size, numTests) {
                 if (edges[j] == 0) {
                     newEdges.push(0);
                 } else {
-                    newEdges.push(0);
+                    newEdges.push(1);
                 }
             }
 
@@ -152,7 +147,7 @@ function testInvalidGraphs(size, numTests) {
     /* Custom Testing */
 
 const graphSize = 3; // 3: Not too large so that heap doesn't run out of memory
-const numOfTests = 10; // 1000: Sufficiently large for n! runtime
+const numOfTests = 1000; // 1000: Sufficiently large for n! runtime
 
 // Reflexive: graph is isomporphic to itself...
 const isReflexive = testReflexivity(graphSize, numOfTests);
