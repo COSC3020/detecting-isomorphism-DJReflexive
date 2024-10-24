@@ -1,0 +1,13 @@
+{
+    "name": "graph-search-djreflexive",
+    "version": "1.0.0",
+    "description": "Recall the pseudocode for Depth-First Search:",
+    "main": "test.code.js",
+    "type": "module",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
