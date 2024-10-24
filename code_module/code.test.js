@@ -103,23 +103,41 @@ function testInvalidGraphs(size, numTests) {
         return true;
     }
 
+    // Returns a Deep Clone of the graph
+    function deepCloneGraph(graph) {
+        let newGraph = [];
+
+        for (let i = 0; i < graph.length; i++) {
+            let node = graph[i];
+            let newEdges = [];
+
+            for (let j = 0; j < graph.length; j++) {
+                let edges = node.getEdges();
+
+                if (edges[j] == 0) {
+                    newEdges.push(0);
+                } else {
+                    newEdges.push(0);
+                }
+            }
+
+            newGraph.push(new GraphNode(node.getNode(), newEdges));
+        }
+
+        return newGraph;
+    }
+
+
     for (let i = 0; i < numTests; i++) {
         let originalGraph = generateGraph(size);
+        let newGraph = deepCloneGraph(originalGraph);
+        let newEdges = newGraph[0].getEdges();
 
         // Changes one edge so that the graphs are no longer isomorphic
-        let newGraph = originalGraph;
-        let newEdges = newGraph[0].getEdges();
-        
-        // Inverts the first edge, making graphs no longer isomorphic
-        if (newEdges[0] == 0) { newEdges[0] = 1; } 
-        else { newEdges[0] = 0; }
+        if (newEdges[0] == 0) { newEdges[0] = 1; } // Creates an edge
+        else { newEdges[0] = 0; } // Removes an edge
 
-        newGraph[0] = new GraphNode(newGraph[0].getNode(), newEdges);
-
-        console.log("DEBUG: origGraphEdges=" + originalGraph[0].getEdges())
-        console.log("     : newGraphEdges=" + newGraph[0].getEdges())
-        console.log("     : newEdges=" + newEdges)
-
+        // If isomorphism is found, then the test fails
         if (are_isomorphic(originalGraph, newGraph)) {
             return false;
         }
